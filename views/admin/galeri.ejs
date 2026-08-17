@@ -1,0 +1,83 @@
+<!-- GALERI ADMIN -->
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Kelola Galeri</h1>
+    <p class="page-subtitle">Upload dan kelola foto yang ditampilkan di galeri landing page</p>
+  </div>
+</div>
+
+<!-- UPLOAD FORM -->
+<div class="card" style="margin-bottom:1.5rem">
+  <div class="card-header">
+    <div class="card-title"><i class="fas fa-upload"></i> Upload Foto Baru</div>
+  </div>
+  <div class="card-body">
+    <form action="/admin/galeri" method="POST" enctype="multipart/form-data">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:1rem;align-items:end">
+        <div class="form-group" style="margin:0">
+          <label>Judul Foto *</label>
+          <input type="text" name="judul" required placeholder="Judul foto">
+        </div>
+        <div class="form-group" style="margin:0">
+          <label>Kategori</label>
+          <select name="kategori">
+            <% ['Kegiatan','Kajian & Pengajian','Hari Besar Islam','Pembangunan','Remaja & Pemuda','Lainnya'].forEach(k => { %>
+              <option value="<%= k %>"><%= k %></option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="form-group" style="margin:0">
+          <label>Tanggal</label>
+          <input type="date" name="tanggal">
+        </div>
+        <div class="form-group" style="margin:0">
+          <label>File Gambar *</label>
+          <input type="file" name="gambar" accept="image/*" required style="padding:6px;border:1.5px solid var(--border);border-radius:8px;font-size:0.82rem">
+        </div>
+        <button type="submit" class="btn btn-primary-admin" style="white-space:nowrap">
+          <i class="fas fa-upload"></i> Upload
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- GALERI GRID -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">
+      <i class="fas fa-images" style="color:var(--info)"></i>
+      Semua Foto (<%= galeri.length %>)
+    </div>
+  </div>
+  <div class="card-body">
+    <% if (galeri.length > 0) { %>
+      <div class="galeri-admin-grid">
+        <% galeri.forEach(g => { %>
+          <div class="galeri-admin-item">
+            <% if (g.gambar) { %>
+              <img src="<%= g.gambar %>" alt="<%= g.judul %>" class="galeri-admin-img" onerror="this.parentElement.style.background='var(--bg)'">
+            <% } else { %>
+              <div class="galeri-admin-img" style="display:flex;align-items:center;justify-content:center;font-size:2rem;background:var(--bg);height:100%">📸</div>
+            <% } %>
+            <div class="galeri-admin-overlay">
+              <span style="color:white;font-size:0.75rem;font-weight:600;text-align:center;padding:0 0.5rem"><%= g.judul %></span>
+              <span style="color:rgba(255,255,255,0.7);font-size:0.7rem"><%= g.kategori %></span>
+              <form action="/admin/galeri/<%= g.id %>?_method=DELETE" method="POST" id="del-galeri-<%= g.id %>">
+                <button type="button" class="btn btn-danger btn-sm" style="margin-top:0.5rem" data-delete-btn data-name="<%= g.judul %>" data-form-id="del-galeri-<%= g.id %>">
+                  <i class="fas fa-trash"></i> Hapus
+                </button>
+              </form>
+            </div>
+            <div class="galeri-admin-info"><%= g.judul.substring(0, 25) %><%= g.judul.length > 25 ? '...' : '' %></div>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <div style="text-align:center;padding:3rem;color:var(--text-muted)">
+        <div style="font-size:3rem;margin-bottom:1rem">📸</div>
+        <p>Belum ada foto. Upload foto pertama Anda!</p>
+      </div>
+    <% } %>
+  </div>
+</div>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="admin-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-brand">
+          <div class="sidebar-brand-icon">🕌</div>
+          <div class="sidebar-brand-text">
+            <div class="brand-top">Backoffice</div>
+            <div class="brand-name">Masjid Admin</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-user-info">
+        <div class="sidebar-avatar"><%= user ? user.name.charAt(0).toUpperCase() : 'A' %></div>
+        <div>
+          <div class="sidebar-user-name"><%= user ? user.name : 'Admin' %></div>
+          <div class="sidebar-user-role">Administrator</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-group-label">Utama</div>
+        <a href="/admin/dashboard" class="<%= activePage === 'dashboard' ? 'active' : '' %>">
+          <span class="nav-icon"><i class="fas fa-home"></i></span>
+          <span>Dashboard</span>
+        </a>
+
+        <div class="nav-group-label">Konten</div>
+        <a href="/admin/pengaturan" class="<%= activePage === 'pengaturan' ? 'active' : '' %>">
+          <span class="nav-icon"><i class="fas fa-cog"></i></span>
+          <span>Pengaturan</span>
+        </a>
+        <a href="/admin/kegiatan" class="<%= activePage === 'kegiatan' ? 'active' : '' %>">
+          <span class="nav-icon"><i class="fas fa-calendar-alt"></i></span>
+          <span>Kegiatan</span>
+        </a>
+        <a href="/admin/galeri" class="<%= activePage === 'galeri' ? 'active' : '' %>">
+          <span class="nav-icon"><i class="fas fa-images"></i></span>
+          <span>Galeri</span>
+        </a>
+        <a href="/admin/artikel" class="<%= activePage === 'artikel' ? 'active' : '' %>">
+          <span class="nav-icon"><i class="fas fa-newspaper"></i></span>
+          <span>Artikel</span>
+        </a>
+
+        <div class="nav-group-label">Pengaturan</div>
+        <a href="/admin/jadwal-sholat" class="<%= activePage === 'jadwal' ? 'active' : '' %>">
+          <span class="nav-icon"><i class="fas fa-clock"></i></span>
+          <span>Jadwal Sholat</span>
+        </a>
+        <a href="/admin/donasi" class="<%= activePage === 'donasi' ? 'active' : '' %>">
+          <span class="nav-icon"><i class="fas fa-hand-holding-heart"></i></span>
+          <span>Donasi</span>
+        </a>
+
+        <div class="nav-group-label">Lainnya</div>
+        <a href="/" target="_blank">
+          <span class="nav-icon"><i class="fas fa-external-link-alt"></i></span>
+          <span>Lihat Website</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <form action="/admin/logout" method="POST">
+          <button type="submit" class="sidebar-logout-btn">
+            <i class="fas fa-sign-out-alt"></i>
+            Logout
+          </button>
+        </form>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="admin-main">
+      <!-- TOPBAR -->
+      <div class="topbar">
+        <div class="topbar-left">
+          <button id="sidebar-toggle" style="background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:1.1rem;display:none">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div>
+            <div class="topbar-title"><%= title.split(' - ')[0] %></div>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <a href="/" target="_blank" class="topbar-btn preview">
+            <i class="fas fa-eye"></i>
+            Preview Website
+          </a>
+        </div>
+      </div>
+
+      <!-- FLASH MESSAGES -->
+      <div class="flash-container">
+        <% if (success && success.length > 0) { %>
+          <% success.forEach(msg => { %>
+            <div class="flash flash-success">
+              <i class="fas fa-check-circle"></i>
+              <span class="flash-text"><%= msg %></span>
+              <button class="flash-close">×</button>
+            </div>
+          <% }) %>
+        <% } %>
+        <% if (error && error.length > 0) { %>
+          <% error.forEach(msg => { %>
+            <div class="flash flash-error">
+              <i class="fas fa-exclamation-circle"></i>
+              <span class="flash-text"><%= msg %></span>
+              <button class="flash-close">×</button>
+            </div>
+          <% }) %>
+        <% } %>
+      </div>
+
+      <!-- PAGE CONTENT -->
+      <div class="admin-content">
+        <%- body %>
+      </div>
+    </main>
+  </div>
+
+  <!-- DELETE MODAL -->
+  <div class="delete-overlay" id="delete-overlay">
+    <div class="delete-modal">
+      <div class="delete-icon">🗑️</div>
+      <div class="delete-title">Konfirmasi Hapus</div>
+      <div class="delete-desc">Apakah Anda yakin ingin menghapus item ini?</div>
+      <div class="delete-actions">
+        <button class="btn btn-secondary" id="delete-cancel">Batal</button>
+        <button class="btn btn-danger" id="delete-confirm">Hapus</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

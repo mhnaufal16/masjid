@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="login-page">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="login-logo">🕌</div>
+        <h1 class="login-title">Admin Panel</h1>
+        <p class="login-subtitle">Masuk untuk mengelola landing page masjid</p>
+      </div>
+
+      <% if (error && error.length > 0) { %>
+        <div class="flash flash-error" style="margin-bottom:1rem">
+          <i class="fas fa-exclamation-circle"></i>
+          <span class="flash-text"><%= error[0] %></span>
+        </div>
+      <% } %>
+
+      <form action="/admin/login" method="POST" class="login-form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <div class="input-icon-wrap">
+            <i class="fas fa-user input-icon"></i>
+            <input type="text" id="username" name="username" placeholder="Masukkan username" required autocomplete="username">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-icon-wrap">
+            <i class="fas fa-lock input-icon"></i>
+            <input type="password" id="password" name="password" placeholder="Masukkan password" required autocomplete="current-password">
+          </div>
+        </div>
+        <button type="submit" class="login-btn">
+          <i class="fas fa-sign-in-alt"></i>
+          Masuk
+        </button>
+      </form>
+
+      <a href="/" class="login-back">
+        <i class="fas fa-arrow-left"></i> Kembali ke Website
+      </a>
+    </div>
+  </div>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!-- DONASI LIST -->
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Kelola Donasi</h1>
+    <p class="page-subtitle">Tambah dan kelola rekening untuk infaq dan shadaqah</p>
+  </div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 2fr;gap:2rem">
+  
+  <!-- FORM TAMBAH -->
+  <div class="card" style="align-self:start">
+    <div class="card-header">
+      <div class="card-title">
+        <i class="fas fa-plus-circle" style="color:var(--primary)"></i>
+        Tambah Rekening
+      </div>
+    </div>
+    <div class="card-body">
+      <form action="/admin/donasi" method="POST">
+        <div class="form-group">
+          <label class="form-label">Nama Bank / E-Wallet</label>
+          <input type="text" name="nama_bank" class="form-control" placeholder="BSI / BCA / GoPay" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Nomor Rekening</label>
+          <input type="text" name="no_rekening" class="form-control" placeholder="1234567890" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Atas Nama</label>
+          <input type="text" name="nama_pemilik" class="form-control" placeholder="Masjid Al-Ikhlas" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Keterangan (Opsional)</label>
+          <textarea name="keterangan" class="form-control" rows="2" placeholder="Untuk pembangunan masjid..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary-admin" style="width:100%">
+          <i class="fas fa-save"></i> Simpan
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">
+        <i class="fas fa-hand-holding-heart" style="color:var(--primary)"></i>
+        Daftar Rekening Donasi (<%= donasiList.length %>)
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Bank/Wallet</th>
+            <th>Rekening</th>
+            <th>Atas Nama</th>
+            <th>Keterangan</th>
+            <th width="80">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (donasiList.length > 0) { %>
+            <% donasiList.forEach(d => { %>
+            <tr>
+              <td style="font-weight:600"><%= d.nama_bank %></td>
+              <td><span style="font-family:monospace;font-size:1.1rem;background:var(--bg);padding:2px 6px;border-radius:4px"><%= d.no_rekening %></span></td>
+              <td><%= d.nama_pemilik %></td>
+              <td style="font-size:0.85rem;color:var(--text-muted)"><%= d.keterangan || '-' %></td>
+              <td>
+                <form action="/admin/donasi/<%= d.id %>?_method=DELETE" method="POST" id="del-donasi-<%= d.id %>">
+                  <button type="button" class="btn btn-danger btn-sm" data-delete-btn data-name="Rekening <%= d.nama_bank %>" data-form-id="del-donasi-<%= d.id %>">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+            <% }) %>
+          <% } else { %>
+            <tr>
+              <td colspan="5" style="text-align:center;padding:2rem;color:var(--text-muted)">
+                <div style="font-size:2rem;margin-bottom:0.5rem">💳</div>
+                Belum ada data rekening donasi.
+              </td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

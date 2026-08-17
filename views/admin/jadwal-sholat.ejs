@@ -1,0 +1,54 @@
+<!-- JADWAL SHOLAT -->
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Jadwal Sholat</h1>
+    <p class="page-subtitle">Perbarui jadwal waktu sholat 5 waktu</p>
+  </div>
+</div>
+
+<div class="card" style="max-width:800px">
+  <div class="card-header">
+    <div class="card-title">
+      <i class="fas fa-clock" style="color:var(--primary)"></i>
+      Pengaturan Jadwal Sholat
+    </div>
+  </div>
+  <div class="card-body">
+    <form action="/admin/jadwal-sholat" method="POST">
+      
+      <div class="form-group">
+        <label class="form-label">Hari/Tanggal/Keterangan</label>
+        <input type="text" name="hari" class="form-control" value="<%= jadwal ? jadwal.hari : '' %>" placeholder="Contoh: Senin, 17 Agustus 2026 atau Hari Ini" required>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));gap:1rem;margin-bottom:1.5rem">
+        <div class="form-group">
+          <label class="form-label">Subuh</label>
+          <input type="time" name="subuh" class="form-control" value="<%= jadwal ? jadwal.subuh : '04:30' %>" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Dzuhur</label>
+          <input type="time" name="dzuhur" class="form-control" value="<%= jadwal ? jadwal.dzuhur : '11:55' %>" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Ashar</label>
+          <input type="time" name="ashar" class="form-control" value="<%= jadwal ? jadwal.ashar : '15:15' %>" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Maghrib</label>
+          <input type="time" name="maghrib" class="form-control" value="<%= jadwal ? jadwal.maghrib : '17:50' %>" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Isya</label>
+          <input type="time" name="isya" class="form-control" value="<%= jadwal ? jadwal.isya : '19:05' %>" required>
+        </div>
+      </div>
+
+      <div style="margin-top:2rem">
+        <button type="submit" class="btn btn-primary-admin">
+          <i class="fas fa-save"></i> Simpan Jadwal
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

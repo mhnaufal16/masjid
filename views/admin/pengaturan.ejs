@@ -1,0 +1,395 @@
+<!-- PENGATURAN PAGE -->
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Pengaturan Website</h1>
+    <p class="page-subtitle">Kelola semua konten dan tampilan landing page masjid</p>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="settings-tabs">
+  <button class="settings-tab active" data-tab="profil">
+    <i class="fas fa-mosque"></i> Profil Masjid
+  </button>
+  <button class="settings-tab" data-tab="hero">
+    <i class="fas fa-image"></i> Hero Section
+  </button>
+  <button class="settings-tab" data-tab="tentang">
+    <i class="fas fa-info-circle"></i> Tentang
+  </button>
+  <button class="settings-tab" data-tab="sosmed">
+    <i class="fas fa-share-alt"></i> Sosial Media
+  </button>
+  <button class="settings-tab" data-tab="statistik">
+    <i class="fas fa-chart-bar"></i> Statistik
+  </button>
+  <button class="settings-tab" data-tab="ticker">
+    <i class="fas fa-scroll"></i> Ticker & Hadis
+  </button>
+  <button class="settings-tab" data-tab="donasi-info">
+    <i class="fas fa-hand-holding-heart"></i> Info Donasi
+  </button>
+  <button class="settings-tab" data-tab="footer-tab">
+    <i class="fas fa-footer"></i> Footer
+  </button>
+  <button class="settings-tab" data-tab="password">
+    <i class="fas fa-lock"></i> Password
+  </button>
+</div>
+
+<!-- TAB: PROFIL MASJID -->
+<div class="settings-panel active" id="tab-profil">
+  <form action="/admin/pengaturan" method="POST" enctype="multipart/form-data">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><i class="fas fa-mosque"></i> Profil Masjid</div>
+      </div>
+      <div class="card-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Nama Masjid</label>
+            <input type="text" name="masjid_nama" value="<%= settings.masjid_nama %>" required>
+          </div>
+          <div class="form-group">
+            <label>Slogan / Tagline</label>
+            <input type="text" name="masjid_slogan" value="<%= settings.masjid_slogan %>">
+          </div>
+          <div class="form-group full-width">
+            <label>Deskripsi Masjid</label>
+            <textarea name="masjid_deskripsi" rows="3"><%= settings.masjid_deskripsi %></textarea>
+          </div>
+          <div class="form-group">
+            <label>Alamat</label>
+            <input type="text" name="masjid_alamat" value="<%= settings.masjid_alamat %>">
+          </div>
+          <div class="form-group">
+            <label>No. Telepon</label>
+            <input type="text" name="masjid_telepon" value="<%= settings.masjid_telepon %>">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="masjid_email" value="<%= settings.masjid_email %>">
+          </div>
+          <div class="form-group">
+            <label>Logo Masjid</label>
+            <div class="file-upload-area">
+              <input type="file" name="masjid_logo" accept="image/*" data-preview="logo-preview">
+              <div class="file-upload-icon">🖼️</div>
+              <p>Klik untuk upload logo <strong>PNG/SVG/JPG</strong></p>
+              <p style="font-size:0.75rem;margin-top:4px">Disarankan: transparant PNG, 200x200px</p>
+            </div>
+            <% if (settings.masjid_logo) { %>
+              <img id="logo-preview" src="<%= settings.masjid_logo %>" class="img-preview" style="margin-top:0.5rem;max-height:80px">
+            <% } else { %>
+              <img id="logo-preview" class="img-preview" style="display:none">
+            <% } %>
+          </div>
+        </div>
+        <div style="margin-top:1.5rem">
+          <button type="submit" class="btn btn-primary-admin">
+            <i class="fas fa-save"></i> Simpan Pengaturan
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- TAB: HERO -->
+<div class="settings-panel" id="tab-hero">
+  <form action="/admin/pengaturan" method="POST" enctype="multipart/form-data">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><i class="fas fa-image"></i> Hero Section</div>
+      </div>
+      <div class="card-body">
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label>Judul Hero</label>
+            <input type="text" name="hero_judul" value="<%= settings.hero_judul %>">
+          </div>
+          <div class="form-group full-width">
+            <label>Subtitle / Deskripsi Hero</label>
+            <textarea name="hero_subtitle" rows="3"><%= settings.hero_subtitle %></textarea>
+          </div>
+          <div class="form-group">
+            <label>Teks Tombol</label>
+            <input type="text" name="hero_btn_teks" value="<%= settings.hero_btn_teks %>">
+          </div>
+          <div class="form-group">
+            <label>Link Tombol</label>
+            <input type="text" name="hero_btn_link" value="<%= settings.hero_btn_link %>">
+          </div>
+          <div class="form-group full-width">
+            <label>Gambar Hero / Background</label>
+            <div class="file-upload-area">
+              <input type="file" name="hero_gambar" accept="image/*" data-preview="hero-preview">
+              <div class="file-upload-icon">🖼️</div>
+              <p>Klik untuk upload gambar hero <strong>JPG/PNG/WebP</strong></p>
+              <p style="font-size:0.75rem;margin-top:4px">Disarankan: landscape, min 1920x1080px</p>
+            </div>
+            <% if (settings.hero_gambar && settings.hero_gambar !== '/images/hero-masjid.jpg') { %>
+              <img id="hero-preview" src="<%= settings.hero_gambar %>" class="img-preview" style="margin-top:0.5rem;max-height:200px;width:100%;object-fit:cover;border-radius:8px">
+            <% } else { %>
+              <img id="hero-preview" class="img-preview" style="display:none">
+            <% } %>
+          </div>
+        </div>
+        <div style="margin-top:1.5rem">
+          <button type="submit" class="btn btn-primary-admin">
+            <i class="fas fa-save"></i> Simpan Hero
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- TAB: TENTANG -->
+<div class="settings-panel" id="tab-tentang">
+  <form action="/admin/pengaturan" method="POST" enctype="multipart/form-data">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><i class="fas fa-info-circle"></i> Section Tentang Kami</div>
+      </div>
+      <div class="card-body">
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label>Judul Section Tentang</label>
+            <input type="text" name="about_judul" value="<%= settings.about_judul %>">
+          </div>
+          <div class="form-group full-width">
+            <label>Teks Deskripsi</label>
+            <textarea name="about_teks" rows="4"><%= settings.about_teks %></textarea>
+          </div>
+          <div class="form-group full-width">
+            <label>Visi</label>
+            <textarea name="about_visi" rows="2"><%= settings.about_visi %></textarea>
+          </div>
+          <div class="form-group full-width">
+            <label>Misi</label>
+            <textarea name="about_misi" rows="2"><%= settings.about_misi %></textarea>
+          </div>
+          <div class="form-group full-width">
+            <label>Gambar Section Tentang</label>
+            <div class="file-upload-area">
+              <input type="file" name="about_gambar" accept="image/*" data-preview="about-preview">
+              <div class="file-upload-icon">🖼️</div>
+              <p>Upload foto masjid untuk section About</p>
+            </div>
+            <% if (settings.about_gambar && settings.about_gambar !== '/images/about-masjid.jpg') { %>
+              <img id="about-preview" src="<%= settings.about_gambar %>" class="img-preview" style="margin-top:0.5rem;max-height:200px;width:100%;object-fit:cover;border-radius:8px">
+            <% } else { %>
+              <img id="about-preview" class="img-preview" style="display:none">
+            <% } %>
+          </div>
+        </div>
+        <div style="margin-top:1.5rem">
+          <button type="submit" class="btn btn-primary-admin">
+            <i class="fas fa-save"></i> Simpan
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- TAB: SOSMED -->
+<div class="settings-panel" id="tab-sosmed">
+  <form action="/admin/pengaturan" method="POST">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><i class="fas fa-share-alt"></i> Sosial Media</div>
+      </div>
+      <div class="card-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label><i class="fab fa-facebook" style="color:#1877F2"></i> Facebook URL</label>
+            <input type="url" name="sosmed_facebook" value="<%= settings.sosmed_facebook %>" placeholder="https://facebook.com/...">
+          </div>
+          <div class="form-group">
+            <label><i class="fab fa-instagram" style="color:#E1306C"></i> Instagram URL</label>
+            <input type="url" name="sosmed_instagram" value="<%= settings.sosmed_instagram %>" placeholder="https://instagram.com/...">
+          </div>
+          <div class="form-group">
+            <label><i class="fab fa-youtube" style="color:#FF0000"></i> YouTube URL</label>
+            <input type="url" name="sosmed_youtube" value="<%= settings.sosmed_youtube %>" placeholder="https://youtube.com/...">
+          </div>
+          <div class="form-group">
+            <label><i class="fab fa-twitter" style="color:#1DA1F2"></i> Twitter/X URL</label>
+            <input type="url" name="sosmed_twitter" value="<%= settings.sosmed_twitter %>" placeholder="https://twitter.com/...">
+          </div>
+        </div>
+        <div style="margin-top:1.5rem">
+          <button type="submit" class="btn btn-primary-admin">
+            <i class="fas fa-save"></i> Simpan
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- TAB: STATISTIK -->
+<div class="settings-panel" id="tab-statistik">
+  <form action="/admin/pengaturan" method="POST">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><i class="fas fa-chart-bar"></i> Statistik Hero</div>
+      </div>
+      <div class="card-body">
+        <p style="color:var(--text-muted);font-size:0.875rem;margin-bottom:1.5rem">Angka-angka yang ditampilkan di section hero landing page.</p>
+        <div class="form-grid cols-3">
+          <div class="form-group">
+            <label>Jumlah Jamaah</label>
+            <input type="text" name="stat_jamaah" value="<%= settings.stat_jamaah %>" placeholder="Contoh: 2000+">
+          </div>
+          <div class="form-group">
+            <label>Kegiatan/Tahun</label>
+            <input type="text" name="stat_kegiatan" value="<%= settings.stat_kegiatan %>" placeholder="Contoh: 50+">
+          </div>
+          <div class="form-group">
+            <label>Program Aktif</label>
+            <input type="text" name="stat_program" value="<%= settings.stat_program %>" placeholder="Contoh: 15+">
+          </div>
+          <div class="form-group">
+            <label>Tahun Berdiri</label>
+            <input type="text" name="stat_tahun" value="<%= settings.stat_tahun %>" placeholder="Contoh: 35+">
+          </div>
+        </div>
+        <div style="margin-top:1.5rem">
+          <button type="submit" class="btn btn-primary-admin">
+            <i class="fas fa-save"></i> Simpan
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- TAB: TICKER -->
+<div class="settings-panel" id="tab-ticker">
+  <form action="/admin/pengaturan" method="POST">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><i class="fas fa-scroll"></i> Ticker & Hadis</div>
+      </div>
+      <div class="card-body">
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label>Teks Hadis / Ayat Al-Quran</label>
+            <textarea name="ticker_hadis" rows="2"><%= settings.ticker_hadis %></textarea>
+            <p class="form-hint">Akan berjalan otomatis di bagian paling atas halaman</p>
+          </div>
+          <div class="form-group">
+            <label class="form-check">
+              <input type="checkbox" name="ticker_aktif" value="1" <%= settings.ticker_aktif === '1' ? 'checked' : '' %>>
+              Tampilkan Ticker
+            </label>
+          </div>
+        </div>
+        <div style="margin-top:1.5rem">
+          <button type="submit" class="btn btn-primary-admin">
+            <i class="fas fa-save"></i> Simpan
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- TAB: INFO DONASI -->
+<div class="settings-panel" id="tab-donasi-info">
+  <form action="/admin/pengaturan" method="POST">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><i class="fas fa-hand-holding-heart"></i> Info Section Donasi</div>
+      </div>
+      <div class="card-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Judul Section</label>
+            <input type="text" name="donasi_judul" value="<%= settings.donasi_judul %>">
+          </div>
+          <div class="form-group full-width">
+            <label>Deskripsi Donasi</label>
+            <textarea name="donasi_deskripsi" rows="3"><%= settings.donasi_deskripsi %></textarea>
+          </div>
+          <div class="form-group">
+            <label>Target Donasi (Rp)</label>
+            <input type="number" name="donasi_target" value="<%= settings.donasi_target %>">
+          </div>
+          <div class="form-group">
+            <label>Terkumpul (Rp)</label>
+            <input type="number" name="donasi_terkumpul" value="<%= settings.donasi_terkumpul %>">
+          </div>
+        </div>
+        <div style="margin-top:1.5rem">
+          <button type="submit" class="btn btn-primary-admin">
+            <i class="fas fa-save"></i> Simpan
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- TAB: FOOTER -->
+<div class="settings-panel" id="tab-footer-tab">
+  <form action="/admin/pengaturan" method="POST">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><i class="fas fa-align-center"></i> Footer</div>
+      </div>
+      <div class="card-body">
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label>Deskripsi Footer</label>
+            <textarea name="footer_deskripsi" rows="3"><%= settings.footer_deskripsi %></textarea>
+          </div>
+          <div class="form-group full-width">
+            <label>Teks Copyright</label>
+            <input type="text" name="footer_copyright" value="<%= settings.footer_copyright %>">
+          </div>
+        </div>
+        <div style="margin-top:1.5rem">
+          <button type="submit" class="btn btn-primary-admin">
+            <i class="fas fa-save"></i> Simpan
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- TAB: PASSWORD -->
+<div class="settings-panel" id="tab-password">
+  <form action="/admin/ganti-password" method="POST">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><i class="fas fa-lock"></i> Ganti Password</div>
+      </div>
+      <div class="card-body">
+        <div class="form-grid" style="max-width:500px">
+          <div class="form-group full-width">
+            <label>Password Lama</label>
+            <input type="password" name="password_lama" required>
+          </div>
+          <div class="form-group full-width">
+            <label>Password Baru</label>
+            <input type="password" name="password_baru" required minlength="6">
+          </div>
+          <div class="form-group full-width">
+            <label>Konfirmasi Password Baru</label>
+            <input type="password" name="konfirmasi" required minlength="6">
+          </div>
+        </div>
+        <div style="margin-top:1.5rem">
+          <button type="submit" class="btn btn-primary-admin">
+            <i class="fas fa-key"></i> Ganti Password
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

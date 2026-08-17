@@ -1,0 +1,98 @@
+<!-- KEGIATAN FORM -->
+<div class="page-header">
+  <div>
+    <h1 class="page-title"><%= kegiatan ? 'Edit Kegiatan' : 'Tambah Kegiatan' %></h1>
+    <p class="page-subtitle"><%= kegiatan ? 'Perbarui informasi kegiatan' : 'Isi form berikut untuk menambahkan kegiatan baru' %></p>
+  </div>
+  <div class="page-actions">
+    <a href="/admin/kegiatan" class="btn btn-secondary">
+      <i class="fas fa-arrow-left"></i> Kembali
+    </a>
+  </div>
+</div>
+
+<form action="/admin/kegiatan<%= kegiatan ? '/' + kegiatan.id + '?_method=PUT' : '' %>" method="POST" enctype="multipart/form-data">
+  <div style="display:grid;grid-template-columns:1fr 340px;gap:1.5rem">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><i class="fas fa-calendar-alt"></i> Informasi Kegiatan</div>
+      </div>
+      <div class="card-body">
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label>Judul Kegiatan *</label>
+            <input type="text" name="judul" value="<%= kegiatan ? kegiatan.judul : '' %>" required placeholder="Contoh: Kajian Subuh Harian">
+          </div>
+          <div class="form-group full-width">
+            <label>Deskripsi</label>
+            <textarea name="deskripsi" rows="4" placeholder="Deskripsi singkat kegiatan..."><%= kegiatan ? kegiatan.deskripsi : '' %></textarea>
+          </div>
+          <div class="form-group">
+            <label>Tanggal / Jadwal</label>
+            <input type="text" name="tanggal" value="<%= kegiatan ? kegiatan.tanggal : '' %>" placeholder="Contoh: Setiap Minggu / 25 Desember 2024">
+          </div>
+          <div class="form-group">
+            <label>Waktu</label>
+            <input type="text" name="waktu" value="<%= kegiatan ? kegiatan.waktu : '' %>" placeholder="Contoh: 08:00">
+          </div>
+          <div class="form-group">
+            <label>Lokasi</label>
+            <input type="text" name="lokasi" value="<%= kegiatan ? kegiatan.lokasi : '' %>" placeholder="Contoh: Masjid Al-Ikhlas">
+          </div>
+          <div class="form-group">
+            <label>Kategori</label>
+            <select name="kategori">
+              <% ['Kajian', 'Pengajian', 'Pendidikan', 'Sosial', 'Remaja', 'Umum', 'Lainnya'].forEach(kat => { %>
+                <option value="<%= kat %>" <%= kegiatan && kegiatan.kategori === kat ? 'selected' : '' %>><%= kat %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Urutan Tampil</label>
+            <input type="number" name="urutan" value="<%= kegiatan ? kegiatan.urutan : 0 %>" min="0">
+          </div>
+          <% if (kegiatan) { %>
+          <div class="form-group">
+            <label>Status</label>
+            <label class="form-check">
+              <input type="checkbox" name="aktif" value="1" <%= kegiatan.aktif ? 'checked' : '' %>>
+              Tampilkan di landing page
+            </label>
+          </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="fas fa-image"></i> Gambar</div>
+        </div>
+        <div class="card-body">
+          <div class="file-upload-area">
+            <input type="file" name="gambar" accept="image/*" data-preview="kegiatan-img-preview">
+            <div class="file-upload-icon">🖼️</div>
+            <p>Upload <strong>gambar kegiatan</strong></p>
+            <p style="font-size:0.72rem;color:var(--text-muted);margin-top:4px">Max 5MB · JPG/PNG/WebP</p>
+          </div>
+          <% if (kegiatan && kegiatan.gambar) { %>
+            <img id="kegiatan-img-preview" src="<%= kegiatan.gambar %>" class="img-preview" style="margin-top:0.75rem;width:100%;height:160px;object-fit:cover;border-radius:8px">
+          <% } else { %>
+            <img id="kegiatan-img-preview" class="img-preview" style="display:none;margin-top:0.75rem;width:100%;height:160px;object-fit:cover;border-radius:8px">
+          <% } %>
+        </div>
+      </div>
+
+      <div style="margin-top:1rem;display:flex;flex-direction:column;gap:0.75rem">
+        <button type="submit" class="btn btn-primary-admin" style="width:100%;justify-content:center">
+          <i class="fas fa-save"></i>
+          <%= kegiatan ? 'Simpan Perubahan' : 'Tambah Kegiatan' %>
+        </button>
+        <a href="/admin/kegiatan" class="btn btn-secondary" style="width:100%;justify-content:center">
+          Batal
+        </a>
+      </div>
+    </div>
+  </div>
+</form>

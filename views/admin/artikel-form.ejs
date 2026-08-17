@@ -1,0 +1,94 @@
+<!-- ARTIKEL FORM -->
+<div class="page-header">
+  <div>
+    <h1 class="page-title"><%= artikel ? 'Edit Artikel' : 'Tulis Artikel Baru' %></h1>
+    <p class="page-subtitle"><%= artikel ? 'Perbarui konten artikel' : 'Isi form berikut untuk membuat artikel baru' %></p>
+  </div>
+  <div class="page-actions">
+    <a href="/admin/artikel" class="btn btn-secondary">
+      <i class="fas fa-arrow-left"></i> Kembali
+    </a>
+  </div>
+</div>
+
+<form action="/admin/artikel<%= artikel ? '/' + artikel.id + '?_method=PUT' : '' %>" method="POST" enctype="multipart/form-data">
+  <div style="display:grid;grid-template-columns:1fr 320px;gap:1.5rem">
+    <div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="fas fa-newspaper"></i> Konten Artikel</div>
+        </div>
+        <div class="card-body">
+          <div class="form-group" style="margin-bottom:1.25rem">
+            <label>Judul Artikel *</label>
+            <input type="text" name="judul" value="<%= artikel ? artikel.judul : '' %>" required placeholder="Judul artikel menarik...">
+          </div>
+          <div class="form-group" style="margin-bottom:1.25rem">
+            <label>Ringkasan / Excerpt</label>
+            <textarea name="ringkasan" rows="3" placeholder="Ringkasan singkat artikel (akan tampil di preview card)..."><%= artikel ? artikel.ringkasan : '' %></textarea>
+          </div>
+          <div class="form-group">
+            <label>Konten Artikel</label>
+            <textarea name="konten" rows="15" placeholder="Tulis konten artikel di sini... (mendukung HTML dasar)"><%= artikel ? artikel.konten : '' %></textarea>
+            <p class="form-hint">Mendukung tag HTML dasar: &lt;p&gt;, &lt;h2&gt;, &lt;h3&gt;, &lt;strong&gt;, &lt;em&gt;, &lt;ul&gt;, &lt;ol&gt;, &lt;li&gt;</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <!-- META -->
+      <div class="card" style="margin-bottom:1rem">
+        <div class="card-header">
+          <div class="card-title">Meta Artikel</div>
+        </div>
+        <div class="card-body">
+          <div class="form-group" style="margin-bottom:1rem">
+            <label>Kategori</label>
+            <select name="kategori">
+              <% ['Umum','Fiqih','Akidah','Kajian','Pengumuman','Keuangan','Kegiatan'].forEach(kat => { %>
+                <option value="<%= kat %>" <%= artikel && artikel.kategori === kat ? 'selected' : '' %>><%= kat %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="form-group" style="margin-bottom:1rem">
+            <label>Penulis</label>
+            <input type="text" name="penulis" value="<%= artikel ? artikel.penulis : 'Admin' %>" placeholder="Nama penulis">
+          </div>
+          <% if (artikel) { %>
+          <div class="form-group">
+            <label class="form-check">
+              <input type="checkbox" name="aktif" value="1" <%= artikel.aktif ? 'checked' : '' %>>
+              Publikasikan artikel
+            </label>
+          </div>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- GAMBAR -->
+      <div class="card" style="margin-bottom:1rem">
+        <div class="card-header">
+          <div class="card-title">Gambar Sampul</div>
+        </div>
+        <div class="card-body">
+          <div class="file-upload-area" style="padding:1.25rem">
+            <input type="file" name="gambar" accept="image/*" data-preview="artikel-img-preview">
+            <div class="file-upload-icon" style="font-size:1.75rem">🖼️</div>
+            <p style="font-size:0.8rem">Upload gambar sampul</p>
+          </div>
+          <% if (artikel && artikel.gambar) { %>
+            <img id="artikel-img-preview" src="<%= artikel.gambar %>" class="img-preview" style="margin-top:0.75rem;width:100%;height:140px;object-fit:cover;border-radius:8px">
+          <% } else { %>
+            <img id="artikel-img-preview" class="img-preview" style="display:none;margin-top:0.75rem;width:100%;height:140px;object-fit:cover;border-radius:8px">
+          <% } %>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary-admin" style="width:100%;justify-content:center">
+        <i class="fas fa-save"></i>
+        <%= artikel ? 'Simpan Perubahan' : 'Publikasikan Artikel' %>
+      </button>
+    </div>
+  </div>
+</form>

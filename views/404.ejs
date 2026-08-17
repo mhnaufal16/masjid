@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body { background-color: #f8faf9; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; font-family: 'Inter', sans-serif; }
+    .error-container { text-align: center; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); max-width: 400px; width: 100%; }
+    .error-code { font-size: 6rem; font-weight: 800; color: var(--primary); line-height: 1; margin-bottom: 10px; }
+    .error-title { font-size: 1.5rem; color: var(--text-dark); margin-bottom: 15px; }
+    .error-desc { color: var(--text-muted); margin-bottom: 30px; line-height: 1.6; }
+    .btn-back { background: var(--primary); color: white; padding: 12px 24px; border-radius: 10px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; }
+    .btn-back:hover { background: var(--primary-dark); transform: translateY(-2px); }
+  </style>
+</head>
+<body>
+  <div class="error-container">
+    <div class="error-code">404</div>
+    <div class="error-title">Halaman Tidak Ditemukan</div>
+    <div class="error-desc">Maaf, halaman yang Anda cari tidak ada, telah dipindahkan, atau tidak tersedia untuk sementara waktu.</div>
+    <a href="/" class="btn-back"><i class="fas fa-home"></i> Kembali ke Beranda</a>
+  </div>
+</body>
+</html>
