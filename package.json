@@ -8,9 +8,12 @@
     "dev": "nodemon src/app.js",
     "build": "echo No build step required"
   },
+  "engines": {
+    "node": "20.x"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "better-sqlite3": "^9.6.0",
+    "better-sqlite3": "^11.8.0",
     "connect-flash": "^0.1.1",
     "ejs": "^3.1.10",
     "express": "^4.22.2",
