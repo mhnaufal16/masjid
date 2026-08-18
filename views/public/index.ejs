@@ -10,8 +10,14 @@
   <meta property="og:description" content="<%= settings.masjid_deskripsi %>">
   <meta property="og:type" content="website">
   <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+  
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="/css/style.css">
-  <!-- Icons -->
+  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
@@ -21,6 +27,7 @@
 <div class="ticker-bar" id="beranda">
   <div class="ticker-container">
     <div class="ticker-jadwal">
+      <span class="ticker-live-badge"><i class="fas fa-moon"></i> Jadwal Sholat</span>
       <% if (jadwal) { %>
       <div class="ticker-jadwal-item">
         <span class="waktu-label">Subuh</span>
@@ -59,10 +66,12 @@
       <% if (settings.masjid_logo && settings.masjid_logo !== '/images/logo-masjid.png') { %>
         <img src="<%= settings.masjid_logo %>" alt="Logo <%= settings.masjid_nama %>" class="nav-logo">
       <% } else { %>
-        <div style="width:48px;height:48px;background:linear-gradient(135deg,#1a5c38,#2d7a4f);border-radius:12px;display:flex;align-items:center;justify-content:center;color:white;font-size:1.5rem;">🕌</div>
+        <div class="nav-logo-badge">
+          <span>🕌</span>
+        </div>
       <% } %>
       <div class="nav-brand-text">
-        <div class="brand-label">Masjid</div>
+        <div class="brand-label">Masjid Agung</div>
         <div class="brand-name"><%= settings.masjid_nama %></div>
         <div class="brand-tagline"><%= settings.masjid_slogan %></div>
       </div>
@@ -75,13 +84,13 @@
       <li>
         <a href="#donasi" class="btn-donasi">
           <i class="fas fa-hand-holding-heart"></i>
-          Donasi Sekarang
+          <span>Donasi Sekarang</span>
         </a>
       </li>
     </ul>
 
     <button class="nav-mobile-btn" id="nav-mobile-btn" aria-label="Menu">
-      <span class="hamburger-icon" style="font-size:1.5rem;color:var(--primary)">☰</span>
+      <span class="hamburger-icon">☰</span>
     </button>
   </div>
 </nav>
@@ -93,17 +102,19 @@
       <img src="<%= settings.hero_gambar %>" alt="Masjid" class="hero-bg-img">
     <% } %>
     <div class="hero-pattern"></div>
+    <div class="hero-glow-1"></div>
+    <div class="hero-glow-2"></div>
   </div>
 
   <div class="hero-container">
     <div class="hero-content">
       <div class="hero-badge">
-        <i class="fas fa-mosque"></i>
-        <%= settings.masjid_slogan %>
+        <i class="fas fa-kaaba"></i>
+        <span><%= settings.masjid_slogan %></span>
       </div>
       <h1 class="hero-title">
         <%= settings.hero_judul.split(' ').slice(0, 3).join(' ') %>
-        <span><%= settings.hero_judul.split(' ').slice(3).join(' ') %></span>
+        <span class="gold-gradient-text"><%= settings.hero_judul.split(' ').slice(3).join(' ') %></span>
       </h1>
       <p class="hero-subtitle"><%= settings.hero_subtitle %></p>
       <div class="hero-actions">
@@ -111,9 +122,9 @@
           <i class="fas fa-calendar-alt"></i>
           <%= settings.hero_btn_teks %>
         </a>
-        <a href="#donasi" class="btn-outline-white">
+        <a href="#donasi" class="btn-outline-gold">
           <i class="fas fa-hand-holding-heart"></i>
-          Donasi Sekarang
+          Donasi Infaq
         </a>
       </div>
       <div class="hero-stats">
@@ -131,29 +142,34 @@
         </div>
         <div class="hero-stat-item">
           <div class="hero-stat-value"><%= settings.stat_tahun %></div>
-          <div class="hero-stat-label">Tahun Berdiri</div>
+          <div class="hero-stat-label">Tahun Melayani</div>
         </div>
       </div>
     </div>
 
     <div class="hero-image-wrap">
-      <% if (settings.hero_gambar && settings.hero_gambar !== '/images/hero-masjid.jpg') { %>
-        <img src="<%= settings.hero_gambar %>" alt="Masjid <%= settings.masjid_nama %>" class="hero-mosque-img">
-      <% } else { %>
-        <div class="hero-img-placeholder">
-          <svg width="120" height="120" viewBox="0 0 24 24" fill="white" opacity="0.3">
-            <path d="M20,6c0-1.1-0.9-2-2-2h-2V2h-4v2H8C6.9,4,6,4.9,6,6v2H4v2h2v10h12V10h2V8h-2V6z M8,6h8v1H8V6z M18,18H6v-8h12V18z"/>
-          </svg>
-          <p style="color:rgba(255,255,255,0.4);font-size:0.9rem;margin-top:1rem">Upload foto masjid<br>di Backoffice</p>
-        </div>
-      <% } %>
+      <div class="hero-img-frame">
+        <% if (settings.hero_gambar && settings.hero_gambar !== '/images/hero-masjid.jpg') { %>
+          <img src="<%= settings.hero_gambar %>" alt="Masjid <%= settings.masjid_nama %>" class="hero-mosque-img">
+        <% } else { %>
+          <div class="hero-img-placeholder">
+            <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2L15 8H9L12 2Z" fill="var(--gold-accent)"/>
+              <path d="M4 22V10L12 4L20 10V22H4Z" stroke="var(--emerald-400)"/>
+              <path d="M9 22V15H15V22" stroke="var(--gold-accent)"/>
+            </svg>
+            <p class="placeholder-text">Kemegahan Rumah Allah</p>
+          </div>
+        <% } %>
+        <div class="hero-frame-ring"></div>
+      </div>
 
       <div class="hero-float-card card-prayer">
         <div class="float-card-icon">
           <i class="fas fa-clock"></i>
         </div>
         <div class="float-card-content">
-          <div class="label">Waktu Sekarang</div>
+          <div class="label">Waktu WIB</div>
           <div class="value" id="current-time">--:--:--</div>
         </div>
       </div>
@@ -161,11 +177,11 @@
       <% if (jadwal) { %>
       <div class="hero-float-card card-jamaah">
         <div class="float-card-icon">
-          <i class="fas fa-pray"></i>
+          <i class="fas fa-mosque"></i>
         </div>
         <div class="float-card-content">
-          <div class="label">Maghrib</div>
-          <div class="value"><%= jadwal.maghrib %></div>
+          <div class="label">Sholat Berikutnya</div>
+          <div class="value">Maghrib <%= jadwal.maghrib %></div>
         </div>
       </div>
       <% } %>
@@ -179,36 +195,44 @@
   <div class="jadwal-container">
     <div class="jadwal-header">
       <div class="jadwal-title">
-        <i class="fas fa-mosque"></i>
-        <span>Jadwal Sholat Harian</span>
+        <div class="jadwal-icon-badge">
+          <i class="fas fa-star-and-crescent"></i>
+        </div>
+        <div>
+          <h3>Jadwal Sholat Harian</h3>
+          <p class="jadwal-sub">Wilayah Masjid &amp; Sekitarnya</p>
+        </div>
       </div>
-      <span class="jadwal-tanggal" id="tanggal-hijri"></span>
+      <div class="jadwal-tanggal-box">
+        <i class="far fa-calendar-alt"></i>
+        <span id="tanggal-hijri"></span>
+      </div>
     </div>
     <div class="jadwal-grid">
       <div class="jadwal-item">
         <div class="jadwal-name">Subuh</div>
         <div class="jadwal-time"><%= jadwal.subuh %></div>
-        <div class="jadwal-iqomah">Iqomah +5 mnt</div>
+        <div class="jadwal-iqomah"><i class="fas fa-hourglass-start"></i> Iqomah +5 mnt</div>
       </div>
       <div class="jadwal-item">
         <div class="jadwal-name">Dzuhur</div>
         <div class="jadwal-time"><%= jadwal.dzuhur %></div>
-        <div class="jadwal-iqomah">Iqomah +10 mnt</div>
+        <div class="jadwal-iqomah"><i class="fas fa-hourglass-start"></i> Iqomah +10 mnt</div>
       </div>
       <div class="jadwal-item">
         <div class="jadwal-name">Ashar</div>
         <div class="jadwal-time"><%= jadwal.ashar %></div>
-        <div class="jadwal-iqomah">Iqomah +5 mnt</div>
+        <div class="jadwal-iqomah"><i class="fas fa-hourglass-start"></i> Iqomah +5 mnt</div>
       </div>
       <div class="jadwal-item">
         <div class="jadwal-name">Maghrib</div>
         <div class="jadwal-time"><%= jadwal.maghrib %></div>
-        <div class="jadwal-iqomah">Iqomah +5 mnt</div>
+        <div class="jadwal-iqomah"><i class="fas fa-hourglass-start"></i> Iqomah +5 mnt</div>
       </div>
       <div class="jadwal-item">
         <div class="jadwal-name">Isya</div>
         <div class="jadwal-time"><%= jadwal.isya %></div>
-        <div class="jadwal-iqomah">Iqomah +10 mnt</div>
+        <div class="jadwal-iqomah"><i class="fas fa-hourglass-start"></i> Iqomah +10 mnt</div>
       </div>
     </div>
   </div>
@@ -220,40 +244,49 @@
   <div class="section-container">
     <div class="about-grid">
       <div class="about-image-wrap fade-in">
-        <% if (settings.about_gambar && settings.about_gambar !== '/images/about-masjid.jpg') { %>
-          <img src="<%= settings.about_gambar %>" alt="Tentang Masjid" class="about-main-img">
-        <% } else { %>
-          <div class="about-img-placeholder">
-            <i class="fas fa-mosque" style="font-size:5rem;color:rgba(255,255,255,0.3)"></i>
-          </div>
-        <% } %>
+        <div class="about-img-box">
+          <% if (settings.about_gambar && settings.about_gambar !== '/images/about-masjid.jpg') { %>
+            <img src="<%= settings.about_gambar %>" alt="Tentang Masjid" class="about-main-img">
+          <% } else { %>
+            <div class="about-img-placeholder">
+              <i class="fas fa-mosque"></i>
+              <span>Masjid Al-Ikhlas</span>
+            </div>
+          <% } %>
+        </div>
         <div class="about-years-badge">
-          <div class="years-num"><%= settings.stat_tahun %></div>
-          <div class="years-label">Tahun<br>Melayani</div>
+          <div class="years-num"><%= settings.stat_tahun %>+</div>
+          <div class="years-label">Tahun<br>Melayani Umat</div>
         </div>
       </div>
 
       <div class="about-content-wrap fade-in">
         <div class="section-badge">
-          <i class="fas fa-star"></i>
-          Tentang Kami
+          <i class="fas fa-crown"></i>
+          Profil &amp; Visi
         </div>
         <h2 class="section-title"><%= settings.about_judul %></h2>
         <p class="about-description"><%= settings.about_teks %></p>
 
         <div class="about-cards">
           <div class="about-card">
-            <h4><i class="fas fa-eye" style="color:var(--primary)"></i> Visi</h4>
-            <p><%= settings.about_visi %></p>
+            <div class="about-card-icon"><i class="fas fa-eye"></i></div>
+            <div class="about-card-text">
+              <h4>Visi Utama</h4>
+              <p><%= settings.about_visi %></p>
+            </div>
           </div>
           <div class="about-card">
-            <h4><i class="fas fa-bullseye" style="color:var(--primary)"></i> Misi</h4>
-            <p><%= settings.about_misi %></p>
+            <div class="about-card-icon"><i class="fas fa-bullseye"></i></div>
+            <div class="about-card-text">
+              <h4>Misi Suci</h4>
+              <p><%= settings.about_misi %></p>
+            </div>
           </div>
         </div>
 
         <a href="#kegiatan" class="btn-more">
-          Lihat Program Kami
+          <span>Lihat Program Kami</span>
           <i class="fas fa-arrow-right"></i>
         </a>
       </div>
@@ -265,13 +298,13 @@
 <% if (kegiatan.length > 0) { %>
 <section class="kegiatan-section" id="kegiatan">
   <div class="section-container">
-    <div class="section-header fade-in">
+    <div class="section-header fade-in text-center">
       <div class="section-badge">
-        <i class="fas fa-calendar-alt"></i>
-        Program & Kegiatan
+        <i class="fas fa-calendar-check"></i>
+        Program &amp; Agenda
       </div>
-      <h2 class="section-title">Kegiatan Masjid</h2>
-      <p class="section-subtitle">Bergabunglah dalam berbagai kegiatan islami yang bermanfaat untuk meningkatkan iman dan ketaqwaan</p>
+      <h2 class="section-title">Kegiatan Makmur Masjid</h2>
+      <p class="section-subtitle">Bergabunglah dalam berbagai kegiatan dakwah dan sosial untuk mengukuhkan ukhuwah islamiyah</p>
     </div>
 
     <div class="kegiatan-grid">
@@ -283,17 +316,16 @@
           <% } else { %>
             <div class="kegiatan-img-placeholder">🕌</div>
           <% } %>
+          <span class="kegiatan-kategori">
+            <i class="fas fa-tag"></i> <%= k.kategori %>
+          </span>
         </div>
         <div class="kegiatan-card-body">
-          <span class="kegiatan-kategori">
-            <i class="fas fa-tag"></i>
-            <%= k.kategori %>
-          </span>
           <h3><%= k.judul %></h3>
           <p><%= k.deskripsi %></p>
           <div class="kegiatan-meta">
-            <span><i class="fas fa-calendar-week"></i> <%= k.tanggal %></span>
-            <span><i class="fas fa-clock"></i> <%= k.waktu %> WIB</span>
+            <span><i class="far fa-calendar-alt"></i> <%= k.tanggal %></span>
+            <span><i class="far fa-clock"></i> <%= k.waktu %> WIB</span>
             <span><i class="fas fa-map-marker-alt"></i> <%= k.lokasi %></span>
           </div>
         </div>
@@ -308,13 +340,13 @@
 <% if (galeri.length > 0) { %>
 <section class="galeri-section" id="galeri">
   <div class="section-container">
-    <div class="section-header fade-in">
+    <div class="section-header fade-in text-center">
       <div class="section-badge">
-        <i class="fas fa-images"></i>
-        Galeri Foto
+        <i class="fas fa-camera-retro"></i>
+        Dokumentasi
       </div>
-      <h2 class="section-title">Galeri Masjid</h2>
-      <p class="section-subtitle">Dokumentasi kegiatan dan momen berharga Masjid dalam melayani umat</p>
+      <h2 class="section-title">Galeri Kebersamaan</h2>
+      <p class="section-subtitle">Momen-momen berharga dan keindahan aktivitas dakwah jamaah masjid</p>
     </div>
 
     <div class="galeri-filter fade-in">
@@ -340,7 +372,7 @@
           <span class="kat-badge"><%= g.kategori %></span>
           <h4><%= g.judul %></h4>
           <% if (g.tanggal) { %>
-            <span class="tanggal"><i class="fas fa-calendar"></i> <%= new Date(g.tanggal).toLocaleDateString('id-ID', {day:'numeric',month:'long',year:'numeric'}) %></span>
+            <span class="tanggal"><i class="far fa-calendar-alt"></i> <%= new Date(g.tanggal).toLocaleDateString('id-ID', {day:'numeric',month:'long',year:'numeric'}) %></span>
           <% } %>
         </div>
       </div>
@@ -354,13 +386,13 @@
 <% if (artikel.length > 0) { %>
 <section class="artikel-section" id="artikel">
   <div class="section-container">
-    <div class="section-header fade-in">
+    <div class="section-header fade-in text-center">
       <div class="section-badge">
-        <i class="fas fa-newspaper"></i>
-        Artikel & Berita
+        <i class="fas fa-book-open"></i>
+        Wawasan Islami
       </div>
-      <h2 class="section-title">Berita Terkini</h2>
-      <p class="section-subtitle">Informasi terbaru dan artikel islami yang bermanfaat untuk Anda</p>
+      <h2 class="section-title">Artikel &amp; Berita Terkini</h2>
+      <p class="section-subtitle">Kajian ilmu, kabar dakwah, dan inspirasi islami yang memperkaya wawasan Anda</p>
     </div>
 
     <div class="artikel-grid">
@@ -372,9 +404,9 @@
           <% } else { %>
             <div class="artikel-img-placeholder">📰</div>
           <% } %>
+          <span class="artikel-kat"><%= a.kategori %></span>
         </div>
         <div class="artikel-card-body">
-          <span class="artikel-kat"><%= a.kategori %></span>
           <h3><%= a.judul %></h3>
           <p><%= a.ringkasan %></p>
           <div class="artikel-meta">
@@ -383,7 +415,7 @@
               <%= a.penulis %>
             </span>
             <a href="/artikel/<%= a.slug %>" class="artikel-link">
-              Baca Selengkapnya
+              <span>Baca Selengkapnya</span>
               <i class="fas fa-arrow-right"></i>
             </a>
           </div>
@@ -397,15 +429,16 @@
 
 <!-- DONASI SECTION -->
 <section class="donasi-section" id="donasi">
+  <div class="donasi-bg-glow"></div>
   <div class="section-container">
     <div class="donasi-content">
       <div class="donasi-info fade-in">
-        <div class="section-badge">
+        <div class="section-badge badge-gold">
           <i class="fas fa-hand-holding-heart"></i>
-          Donasi & Infaq
+          Amal Jariyah &amp; Infaq
         </div>
-        <h2 class="section-title"><%= settings.donasi_judul %></h2>
-        <p class="about-description"><%= settings.donasi_deskripsi %></p>
+        <h2 class="section-title title-light"><%= settings.donasi_judul %></h2>
+        <p class="about-description desc-light"><%= settings.donasi_deskripsi %></p>
 
         <% 
           const target = parseInt(settings.donasi_target) || 1;
@@ -417,28 +450,33 @@
         %>
         <div class="progress-wrap">
           <div class="progress-labels">
-            <span>Terkumpul</span>
-            <span>Target: <%= formatRupiah(settings.donasi_target) %></span>
+            <span>Dana Terkumpul</span>
+            <span class="target-val">Target: <%= formatRupiah(settings.donasi_target) %></span>
           </div>
           <div class="progress-terkumpul"><%= formatRupiah(settings.donasi_terkumpul) %></div>
-          <div class="progress-bar" style="margin-top:8px">
-            <div class="progress-fill" style="width:0%" data-width="<%= persen %>"></div>
+          <div class="progress-bar" style="margin-top:10px">
+            <div class="progress-fill" style="width:0%" data-width="<%= persen %>">
+              <span class="progress-shimmer"></span>
+            </div>
           </div>
-          <div style="color:rgba(255,255,255,0.5);font-size:0.8rem;margin-top:6px"><%= persen %>% dari target tercapai</div>
+          <div class="progress-percent-note"><%= persen %>% dari target telah tercapai</div>
         </div>
       </div>
 
       <div class="donasi-rekening-list fade-in">
-        <h3 style="color:rgba(255,255,255,0.6);font-size:0.85rem;font-weight:600;margin-bottom:1rem;text-transform:uppercase;letter-spacing:1px">Transfer ke Rekening:</h3>
+        <div class="rekening-header-title">
+          <i class="fas fa-credit-card"></i>
+          <span>Transfer Ke Rekening Resmi:</span>
+        </div>
         <% donasi.forEach(d => { %>
         <div class="rekening-card">
           <div class="rekening-bank-logo">
-            <%= d.nama_bank.replace('Bank ', '').substring(0, 3).toUpperCase() %>
+            <%= d.nama_bank.replace('Bank ', '').substring(0, 4).toUpperCase() %>
           </div>
           <div class="rekening-info">
             <div class="rekening-bank-name"><%= d.nama_bank %></div>
             <div class="rekening-number"><%= d.no_rekening %></div>
-            <div class="rekening-owner"><%= d.nama_pemilik %></div>
+            <div class="rekening-owner">a.n. <%= d.nama_pemilik %></div>
           </div>
           <button class="rekening-copy-btn">
             <i class="fas fa-copy"></i> Salin
@@ -453,36 +491,36 @@
 <!-- KONTAK SECTION -->
 <section class="kontak-section" id="kontak">
   <div class="section-container">
-    <div class="section-header fade-in">
+    <div class="section-header fade-in text-center">
       <div class="section-badge">
-        <i class="fas fa-map-marker-alt"></i>
-        Hubungi Kami
+        <i class="fas fa-compass"></i>
+        Lokasi &amp; Kontak
       </div>
-      <h2 class="section-title">Lokasi & Kontak</h2>
-      <p class="section-subtitle">Kami siap melayani Anda. Kunjungi kami atau hubungi kami kapan saja.</p>
+      <h2 class="section-title">Kunjungi Masjid Kami</h2>
+      <p class="section-subtitle">Kami menyambut hangat kedatangan jamaah untuk beribadah dan bersilaturahmi</p>
     </div>
 
     <div class="kontak-grid">
       <div class="fade-in">
         <div class="kontak-info-list">
           <div class="kontak-item">
-            <div class="kontak-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="kontak-icon"><i class="fas fa-map-marked-alt"></i></div>
             <div>
-              <div class="kontak-item-label">Alamat</div>
+              <div class="kontak-item-label">Alamat Lengkap</div>
               <div class="kontak-item-value"><%= settings.masjid_alamat %></div>
             </div>
           </div>
           <div class="kontak-item">
-            <div class="kontak-icon"><i class="fas fa-phone"></i></div>
+            <div class="kontak-icon"><i class="fas fa-phone-alt"></i></div>
             <div>
-              <div class="kontak-item-label">Telepon</div>
+              <div class="kontak-item-label">Telepon / WhatsApp</div>
               <div class="kontak-item-value"><%= settings.masjid_telepon %></div>
             </div>
           </div>
           <div class="kontak-item">
             <div class="kontak-icon"><i class="fas fa-envelope"></i></div>
             <div>
-              <div class="kontak-item-label">Email</div>
+              <div class="kontak-item-label">Email Resmi</div>
               <div class="kontak-item-value"><%= settings.masjid_email %></div>
             </div>
           </div>
@@ -508,15 +546,14 @@
       </div>
 
       <div class="kontak-map fade-in">
-        <div class="kontak-map-placeholder" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:1rem">
-          <i class="fas fa-map-marked-alt" style="font-size:3rem;color:var(--gray-400)"></i>
-          <p style="font-size:0.9rem;color:var(--gray-400);text-align:center">
-            <strong style="color:var(--primary-dark)"><%= settings.masjid_nama %></strong><br>
-            <%= settings.masjid_alamat %>
-          </p>
-          <a href="https://maps.google.com/?q=<%= encodeURIComponent(settings.masjid_alamat) %>" target="_blank" 
-             style="background:var(--primary);color:white;padding:8px 18px;border-radius:8px;font-size:0.82rem;font-weight:600">
-            <i class="fas fa-directions"></i> Buka di Google Maps
+        <div class="kontak-map-placeholder">
+          <div class="map-icon-wrap">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <h4 style="color:var(--emerald-950);font-weight:700;margin-bottom:0.25rem;"><%= settings.masjid_nama %></h4>
+          <p style="font-size:0.85rem;color:var(--gray-600);margin-bottom:1rem;"><%= settings.masjid_alamat %></p>
+          <a href="https://maps.google.com/?q=<%= encodeURIComponent(settings.masjid_alamat) %>" target="_blank" class="btn-primary" style="padding:10px 20px;font-size:0.85rem">
+            <i class="fas fa-directions"></i> Petunjuk Arah Google Maps
           </a>
         </div>
       </div>
@@ -526,27 +563,30 @@
 
 <!-- FOOTER -->
 <footer class="footer">
+  <div class="footer-top-accent"></div>
   <div class="section-container">
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="nav-brand" style="margin-bottom:1rem">
-          <div style="width:40px;height:40px;background:linear-gradient(135deg,#2d7a4f,#1a5c38);border-radius:10px;display:flex;align-items:center;justify-content:center;color:white;font-size:1.25rem">🕌</div>
+          <div class="nav-logo-badge">
+            <span>🕌</span>
+          </div>
           <div class="nav-brand-text">
-            <div class="brand-label">Masjid</div>
-            <div class="brand-name"><%= settings.masjid_nama %></div>
+            <div class="brand-label" style="color:var(--gold-accent)">Masjid Agung</div>
+            <div class="brand-name" style="color:#ffffff"><%= settings.masjid_nama %></div>
             <div class="brand-tagline"><%= settings.masjid_slogan %></div>
           </div>
         </div>
         <p class="footer-desc"><%= settings.footer_deskripsi %></p>
         <div class="sosmed-links">
           <% if (settings.sosmed_facebook) { %>
-            <a href="<%= settings.sosmed_facebook %>" target="_blank" class="sosmed-btn fb" style="padding:8px 10px"><i class="fab fa-facebook-f"></i></a>
+            <a href="<%= settings.sosmed_facebook %>" target="_blank" class="sosmed-btn fb" style="padding:8px 12px"><i class="fab fa-facebook-f"></i></a>
           <% } %>
           <% if (settings.sosmed_instagram) { %>
-            <a href="<%= settings.sosmed_instagram %>" target="_blank" class="sosmed-btn ig" style="padding:8px 10px"><i class="fab fa-instagram"></i></a>
+            <a href="<%= settings.sosmed_instagram %>" target="_blank" class="sosmed-btn ig" style="padding:8px 12px"><i class="fab fa-instagram"></i></a>
           <% } %>
           <% if (settings.sosmed_youtube) { %>
-            <a href="<%= settings.sosmed_youtube %>" target="_blank" class="sosmed-btn yt" style="padding:8px 10px"><i class="fab fa-youtube"></i></a>
+            <a href="<%= settings.sosmed_youtube %>" target="_blank" class="sosmed-btn yt" style="padding:8px 12px"><i class="fab fa-youtube"></i></a>
           <% } %>
         </div>
       </div>
@@ -555,17 +595,17 @@
         <h4>Navigasi</h4>
         <div class="footer-links">
           <% navMenu.slice(0, 6).forEach(menu => { %>
-            <a href="<%= menu.url %>"><i class="fas fa-chevron-right" style="font-size:0.6rem"></i> <%= menu.label %></a>
+            <a href="<%= menu.url %>"><i class="fas fa-chevron-right" style="font-size:0.6rem;color:var(--gold-accent)"></i> <%= menu.label %></a>
           <% }) %>
         </div>
       </div>
 
       <div class="footer-col">
-        <h4>Kontak</h4>
+        <h4>Kontak Resmi</h4>
         <div class="footer-links">
-          <a href="#"><i class="fas fa-map-marker-alt"></i> <%= settings.masjid_alamat.substring(0, 40) %>...</a>
-          <a href="tel:<%= settings.masjid_telepon %>"><i class="fas fa-phone"></i> <%= settings.masjid_telepon %></a>
-          <a href="mailto:<%= settings.masjid_email %>"><i class="fas fa-envelope"></i> <%= settings.masjid_email %></a>
+          <a href="#kontak"><i class="fas fa-map-marker-alt" style="color:var(--gold-accent)"></i> <%= settings.masjid_alamat.substring(0, 35) %>...</a>
+          <a href="tel:<%= settings.masjid_telepon %>"><i class="fas fa-phone" style="color:var(--gold-accent)"></i> <%= settings.masjid_telepon %></a>
+          <a href="mailto:<%= settings.masjid_email %>"><i class="fas fa-envelope" style="color:var(--gold-accent)"></i> <%= settings.masjid_email %></a>
         </div>
       </div>
 
@@ -585,7 +625,7 @@
 
     <div class="footer-bottom">
       <p><%= settings.footer_copyright %></p>
-      <p>Dibangun dengan ❤️ untuk umat</p>
+      <p style="color:rgba(255,255,255,0.6)">Kemewahan Ibadah &bull; Berkhidmat Untuk Umat</p>
     </div>
   </div>
 </footer>
@@ -607,3 +647,4 @@
 <script src="/js/main.js"></script>
 </body>
 </html>
+

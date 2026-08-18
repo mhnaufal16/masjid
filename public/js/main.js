@@ -141,12 +141,12 @@ document.addEventListener('DOMContentLoaded', function () {
       const noRek = btn.closest('.rekening-card')?.querySelector('.rekening-number')?.textContent;
       if (noRek) {
         navigator.clipboard.writeText(noRek.trim()).then(() => {
-          const original = btn.textContent;
-          btn.textContent = '✓ Tersalin!';
-          btn.style.background = 'var(--accent)';
-          btn.style.color = '#0f3d25';
+          const original = btn.innerHTML;
+          btn.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
+          btn.style.background = 'var(--gold-gradient)';
+          btn.style.color = '#021a10';
           setTimeout(() => {
-            btn.textContent = original;
+            btn.innerHTML = original;
             btn.style.background = '';
             btn.style.color = '';
           }, 2000);
